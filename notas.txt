@@ -1,0 +1,2 @@
+· Video de fondo (otro diferente o en BL/NG)
+· Establecer los estilos globales (colores de variables)
