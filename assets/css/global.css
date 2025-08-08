@@ -1,3 +1,5 @@
+/*CARACTERÍSTICAS GLOBALES*/
+
 body, html {
     margin: 0;
     padding: 0;
@@ -9,23 +11,28 @@ body, html {
     font-family: "Playfair Display", serif;
 }
 
-p {
+p, a {
     font-family:"Montserrat", sans-serif;
 }
 
-/*Paleta de colores*/
+
 
 :root {
     --color-principal:#C60021;
     --color-secundario:#780001;
     --color-terciario:#4E020C;
     --color-texto:#FFFFFF;
+    --color-texto-secundario:#c3b2b2;
 }
 
 html {
     font-size: 62.5%; /*1 rem = 10 pixeles*/
     overflow-x:hidden ; /*Oculta barra horizontal de scroll*/
 }
+
+
+
+/*lANDING PAGE*/
 
 /* Contenedor del video */
 .video-montana {
@@ -49,7 +56,76 @@ html {
     transform: translate(-50%, -50%); /* Centra el video */
 }
 
-/* Contenido sobre el video */
+
+
+/*ESTILOS DEL MENÚ*/
+
+header {
+    display: flex;
+    justify-content: space-between; /* Alinear elementos a los extremos */
+    align-items: center;
+    padding: 4rem 7rem; /* Espacio a los lados */
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin-right: 4rem;
+    font-weight: 500;
+}
+
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.logo a:hover {
+    color: var(--color-texto-secundario);
+}
+
+.boton-mentorias {
+    background-color: var(--color-texto);
+    color: black;
+    border: none;
+    padding:1.5rem 2.5rem;
+    border-radius: .4rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.boton-mentorias:hover {
+    color: var(--color-texto);
+    background-color: transparent;
+    font-weight: 600;
+}
+
+
+.icono-mentorias {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.icono-mentorias svg {
+    width: 1.5rem; /* Mismo tamaño que la fuente del texto */
+    height: 1.5rem;
+    color: currentColor; 
+}
+
+
+
+
+/*CONTENIDO DE LA LANDING*/
 
 .contenido-landing {
     display: flex;
@@ -86,14 +162,15 @@ html {
 }
 
 
-/*Animación específica para el h1*/
+
+
+/*ANIMACIONES*/
+/*h1*/
 .text-focus-in{animation:text-focus-in 1.2s cubic-bezier(.55,.085,.68,.53) both}
 @keyframes text-focus-in{0%{filter:blur(12px);opacity:0}100%{filter:blur(0);opacity:1}}
 
 
-
 /*Orden de aparición de los elementos de la landing*/
-
 .contenido-landing p,
 .contenido-landing a {
     opacity: 0;
@@ -115,20 +192,18 @@ html {
 
 .contenido-landing a {
     animation-name: fade-in-up;
-    animation-duration: 0.8s; /* Duración de la animación */
-    animation-fill-mode: forwards; /* Mantiene el estado final de la animación */
+    animation-duration: 0.8s; 
+    animation-fill-mode: forwards; 
     animation-timing-function: ease-out;
 }
 
-
 /* Retrasos para cada elemento */
-
 .contenido-landing p {
     animation-delay: 1.5s; 
 }
 
 .contenido-landing a {
-    animation-delay: 2.5s; 
+    animation-delay: 3s; 
 }
 
 
@@ -137,7 +212,27 @@ html {
 @keyframes tracking-in-expand-fwd{0%{letter-spacing:-.5em;transform:translateZ(-700px);opacity:0}40%{opacity:.6}100%{transform:translateZ(0);opacity:1}}
 
 
+/*Efecto para menú*/
+.tracking-in-expand-fwd-top{animation:tracking-in-expand-fwd-top 4s cubic-bezier(.215,.61,.355,1.000) both}
+@keyframes tracking-in-expand-fwd-top{0%{letter-spacing:-.5em;transform:translateZ(-700px) translateY(-500px);opacity:0}40%{opacity:.6}100%{transform:translateZ(0) translateY(0);opacity:1}}
 
+
+/*Animaciones para cada uno de los elementos del menú*/
+@keyframes pulso-personalizado {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.25); 
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animado:hover {
+    animation: pulso-personalizado 1s infinite;
+}
 
 
 
