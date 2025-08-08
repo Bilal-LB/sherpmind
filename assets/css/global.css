@@ -5,10 +5,11 @@ body, html {
     padding: 0;
     box-sizing: border-box;
     color: white;
-    height: 100%;
-    overflow: hidden; /* Evita barras de desplazamiento */
+    height: auto;
+    /*overflow: hidden;*/ /* Evita barras de desplazamiento */
     outline: none;
     font-family: "Playfair Display", serif;
+    height: auto; /* Permite que el body se expanda con el contenido */
 }
 
 p, a {
@@ -22,7 +23,7 @@ p, a {
     --color-secundario:#780001;
     --color-terciario:#4E020C;
     --color-texto:#FFFFFF;
-    --color-texto-secundario:#c3b2b2;
+    --color-texto-secundario:#f9f3f3;
 }
 
 html {
@@ -95,19 +96,22 @@ nav a {
     background-color: var(--color-texto);
     color: black;
     border: none;
-    padding:1.5rem 2.5rem;
+    padding:1.2rem 2.5rem;
     border-radius: .4rem;
     cursor: pointer;
     font-size: 1.5rem;
     display: flex;
     align-items: center;
     gap: 10px;
+    border: 1px solid transparent;
+    transition: 0.3 ease;
 }
 
 .boton-mentorias:hover {
     color: var(--color-texto);
     background-color: transparent;
     font-weight: 600;
+    border: 1px solid var(--color-texto)
 }
 
 
@@ -236,3 +240,279 @@ nav a {
 
 
 
+/*SLIDER DE SECCIONES*/
+
+/*CARACTERÍSTICAS GLOBALES*/
+
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+    height: 100%;
+    /*overflow: hidden;*/ /* Evita barras de desplazamiento */
+    outline: none;
+    font-family: "Playfair Display", serif;
+    height: auto; /* Permite que el body se expanda con el contenido */
+}
+
+p, a {
+    font-family:"Montserrat", sans-serif;
+}
+
+
+
+:root {
+    --color-principal:#C60021;
+    --color-secundario:#780001;
+    --color-terciario:#4E020C;
+    --color-texto:#FFFFFF;
+    --color-texto-secundario:#f9f3f3;
+}
+
+html {
+    font-size: 62.5%; /*1 rem = 10 pixeles*/
+    overflow-x:hidden ; /*Oculta barra horizontal de scroll*/
+}
+
+
+
+/*lANDING PAGE*/
+
+/* Contenedor del video */
+.video-montana {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1; /* Envía el video al fondo */
+}
+
+#miVideoMontana {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el video */
+}
+
+
+
+/*ESTILOS DEL MENÚ*/
+
+header {
+    display: flex;
+    justify-content: space-between; /* Alinear elementos a los extremos */
+    align-items: center;
+    padding: 4rem 7rem; /* Espacio a los lados */
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin-right: 4rem;
+    font-weight: 500;
+}
+
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.logo a:hover {
+    color: var(--color-texto-secundario);
+}
+
+.boton-mentorias {
+    background-color: var(--color-texto);
+    color: black;
+    border: none;
+    padding:1.2rem 2.5rem;
+    border-radius: .4rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid transparent;
+    transition: 0.3 ease;
+}
+
+.boton-mentorias:hover {
+    color: var(--color-texto);
+    background-color: transparent;
+    font-weight: 600;
+    border: 1px solid var(--color-texto)
+}
+
+
+.icono-mentorias {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.icono-mentorias svg {
+    width: 1.5rem; /* Mismo tamaño que la fuente del texto */
+    height: 1.5rem;
+    color: currentColor; 
+}
+
+
+
+
+/*CONTENIDO DE LA LANDING*/
+
+.contenido-landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+.titulo-principal {
+    font-size: 12vw;
+    text-transform: uppercase;
+    margin-bottom: 8rem;
+    font-weight:300;
+}
+
+
+.contenido-landing p {
+    font-size: 1.5rem;
+    width: 70%;
+    margin-bottom: 10rem;
+    line-height: 1.8;
+}
+
+.boton-landing {
+    font-size: 1.5rem;
+    font-family: "Montserrat", sans-serif;;
+    color: var(--color-texto);
+    text-decoration: none;
+    position: absolute;
+    bottom: 5rem;
+}
+
+
+
+
+/*ANIMACIONES*/
+/*h1*/
+.text-focus-in{animation:text-focus-in 1.2s cubic-bezier(.55,.085,.68,.53) both}
+@keyframes text-focus-in{0%{filter:blur(12px);opacity:0}100%{filter:blur(0);opacity:1}}
+
+
+/*Orden de aparición de los elementos de la landing*/
+.contenido-landing p,
+.contenido-landing a {
+    opacity: 0;
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Opcional: para que se deslice desde abajo */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Estilos generales para la animación */
+
+.contenido-landing a {
+    animation-name: fade-in-up;
+    animation-duration: 0.8s; 
+    animation-fill-mode: forwards; 
+    animation-timing-function: ease-out;
+}
+
+/* Retrasos para cada elemento */
+.contenido-landing p {
+    animation-delay: 1.5s; 
+}
+
+.contenido-landing a {
+    animation-delay: 3s; 
+}
+
+
+/*Efecto para el párrafo*/
+.tracking-in-expand-fwd{animation:tracking-in-expand-fwd 1s cubic-bezier(.215,.61,.355,1.000) both}
+@keyframes tracking-in-expand-fwd{0%{letter-spacing:-.5em;transform:translateZ(-700px);opacity:0}40%{opacity:.6}100%{transform:translateZ(0);opacity:1}}
+
+
+/*Efecto para menú*/
+.tracking-in-expand-fwd-top{animation:tracking-in-expand-fwd-top 4s cubic-bezier(.215,.61,.355,1.000) both}
+@keyframes tracking-in-expand-fwd-top{0%{letter-spacing:-.5em;transform:translateZ(-700px) translateY(-500px);opacity:0}40%{opacity:.6}100%{transform:translateZ(0) translateY(0);opacity:1}}
+
+
+/*Animaciones para cada uno de los elementos del menú*/
+@keyframes pulso-personalizado {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.25); 
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.animado:hover {
+    animation: pulso-personalizado 1s infinite;
+}
+
+
+
+/*SLIDER DE SECCIONES*/
+
+/* ... al final de tu CSS ... */
+
+.secciones {
+    width: 100%;
+    height: 100%; /* Ocupa la altura completa de la pantalla */
+    background-color: rgb(255, 255, 255); /* Color de fondo blanco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 11rem;
+}
+
+
+/*slides*/
+
+.secciones-imagenes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+    margin: 10rem 0;
+}
+
+.secciones-imagenes img {
+    width: 50rem;
+    max-width: 50%;
+    height: auto;
+    border-radius: .4rem;
+}
