@@ -6,7 +6,7 @@ body, html {
     box-sizing: border-box;
     color: white;
     height: 100%;
-    /*overflow: hidden;*/ /* Evita barras de desplazamiento */
+    /* overflow: hidden; */
     outline: none;
     font-family: "Playfair Display", serif;
     height: auto; /* Permite que el body se expanda con el contenido */
@@ -28,7 +28,6 @@ p, a {
 
 html {
     font-size: 62.5%; /*1 rem = 10 pixeles*/
-    overflow-x:hidden ; /*Oculta barra horizontal de scroll*/
 }
 
 
@@ -59,6 +58,7 @@ html {
 
 
 
+
 /*ESTILOS DEL MENÚ*/
 
 header {
@@ -70,6 +70,7 @@ header {
 
 nav ul {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     list-style: none;
     padding: 0;
@@ -373,8 +374,7 @@ nav a {
     align-items: center;
     gap: 15rem;
     font-size: 1.5rem;
-    padding: 0 4rem;
-    flex-wrap: wrap;
+    padding: 0rem 4rem;
 
 }
 
