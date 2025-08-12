@@ -1,1 +1,2 @@
 · Video explicativo de cada videojuego
+· Personalizar los textos del slider y añadir hipervinculo
