@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Sumas Progresivas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f7f7f7;
+            --text-color: #333;
+            --secondary-text-color: #666;
+            --border-color: #ccc;
+            --button-bg: #333;
+            --button-hover-bg: #000;
+            --button-text: #fff;
+            --accent-color: #666;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            overflow: hidden; /* Hide scrollbars for full-screen effect */
+            position: relative;
+        }
+
+        .game-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Full-screen responsive layout */
+        .full-screen-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 0.5em;
+        }
+
+        .current-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 6em;
+            font-weight: 700;
+            margin: 40px 0;
+            min-height: 1.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Position and style the control buttons */
+        .button-group {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 10; /* Ensure buttons are on top */
+        }
+
+        /* Style for smaller buttons */
+        .button-group button {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            flex: 0 0 auto;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .controls-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: 700;
+            color: var(--secondary-text-color);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1em;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            flex: 1 1 120px;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-bg);
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: var(--border-color);
+            cursor: not-allowed;
+        }
+        
+        /* New full-screen result overlay */
+        .result-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(247, 247, 247, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+        }
+
+        .result-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease;
+        }
+
+        .result-section-content {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-section-content input {
+            margin-bottom: 15px;
+        }
+
+        .message {
+            font-size: 1.2em;
+            font-weight: 700;
+            min-height: 1.5em;
+        }
+
+        .message.correct {
+            color: #28a745;
+        }
+
+        .message.incorrect {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="full-screen-container">
+    <div class="button-group">
+        <button id="startButton">Empezar</button>
+        <button id="pauseButton" disabled>Pausar</button>
+        <button id="resetButton" disabled>Reiniciar</button>
+    </div>
+
+    <div class="game-container">
+        <h1>Sumas Progresivas</h1>
+        <div class="current-number" id="numberDisplay"></div>
+        <div class="controls">
+            <div class="controls-group">
+                <label for="speedInput">Velocidad (ms):</label>
+                <input type="number" id="speedInput" value="1000" min="100" step="100">
+            </div>
+            <div class="controls-group">
+                <label for="countInput">Cantidad total de números:</label>
+                <input type="number" id="countInput" value="10" min="1" step="1">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="result-overlay" id="resultOverlay">
+    <div class="result-section-content">
+        <h2>¿Cuál fue la suma total?</h2>
+        <input type="number" id="answerInput" placeholder="Introduce tu respuesta">
+        <button id="checkButton">Comprobar</button>
+        <div class="message" id="resultMessage"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const numberDisplay = document.getElementById('numberDisplay');
+        const startButton = document.getElementById('startButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const resetButton = document.getElementById('resetButton');
+        const speedInput = document.getElementById('speedInput');
+        const countInput = document.getElementById('countInput');
+        const resultOverlay = document.getElementById('resultOverlay');
+        const answerInput = document.getElementById('answerInput');
+        const checkButton = document.getElementById('checkButton');
+        const resultMessage = document.getElementById('resultMessage');
+
+        let intervalId = null;
+        let totalSum = 0;
+        let numbersShown = 0;
+        let isPaused = false;
+
+        /**
+         * Updates the disabled state and text of the control buttons based on the game state.
+         * @param {string} state - The current game state: 'initial', 'playing', 'paused', 'done'.
+         */
+        function updateButtonState(state) {
+            startButton.disabled = state === 'playing' || state === 'paused';
+            pauseButton.disabled = state === 'initial' || state === 'done';
+            resetButton.disabled = state === 'initial';
+
+            if (state === 'paused') {
+                pauseButton.textContent = 'Continuar';
+            } else {
+                pauseButton.textContent = 'Pausar';
+            }
+        }
+
+        /**
+         * Displays the next random number and adds it to the total sum.
+         */
+        function showNextNumber() {
+            if (numbersShown >= parseInt(countInput.value, 10)) {
+                endGame();
+                return;
+            }
+
+            const randomNumber = Math.floor(Math.random() * 10); // Números del 0 al 9
+            totalSum += randomNumber;
+            numberDisplay.textContent = randomNumber;
+            numbersShown++;
+        }
+
+        /**
+         * Starts the game sequence.
+         */
+        function startGame() {
+            const speed = parseInt(speedInput.value, 10);
+            const count = parseInt(countInput.value, 10);
+
+            if (isNaN(speed) || isNaN(count) || speed < 100 || count < 1) {
+                resultMessage.textContent = 'Por favor, introduce valores válidos para la velocidad (mín. 100ms) y la cantidad (mín. 1).';
+                resultMessage.className = 'message incorrect';
+                return;
+            }
+
+            numberDisplay.textContent = '¡Empieza!';
+            resultOverlay.classList.remove('visible');
+            resultMessage.textContent = '';
+            answerInput.value = '';
+
+            totalSum = 0;
+            numbersShown = 0;
+            isPaused = false;
+            updateButtonState('playing');
+
+            setTimeout(() => {
+                intervalId = setInterval(showNextNumber, speed);
+            }, 1000);
+        }
+
+        /**
+         * Toggles between pausing and resuming the game.
+         */
+        function togglePause() {
+            if (isPaused) {
+                isPaused = false;
+                updateButtonState('playing');
+                const speed = parseInt(speedInput.value, 10);
+                intervalId = setInterval(showNextNumber, speed);
+                numberDisplay.textContent = '¡Continúa!';
+            } else {
+                if (intervalId) {
+                    clearInterval(intervalId);
+                    intervalId = null;
+                }
+                isPaused = true;
+                numberDisplay.textContent = 'Pausado';
+                updateButtonState('paused');
+            }
+        }
+
+        /**
+         * Resets the game to its initial state.
+         */
+        function resetGame() {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            intervalId = null;
+            totalSum = 0;
+            numbersShown = 0;
+            isPaused = false;
+            numberDisplay.textContent = '';
+            resultOverlay.classList.remove('visible');
+            resultMessage.textContent = '';
+            answerInput.value = '';
+            updateButtonState('initial');
+        }
+
+        /**
+         * Ends the game and displays the result overlay.
+         */
+        function endGame() {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            intervalId = null;
+            numberDisplay.textContent = 'Fin.';
+            updateButtonState('done');
+            resultOverlay.classList.add('visible');
+        }
+
+        /**
+         * Checks the user's answer against the correct total sum.
+         */
+        function checkAnswer() {
+            const userAnswer = parseInt(answerInput.value, 10);
+            if (isNaN(userAnswer)) {
+                resultMessage.textContent = 'Por favor, introduce un número.';
+                resultMessage.className = 'message incorrect';
+                return;
+            }
+
+            if (userAnswer === totalSum) {
+                resultMessage.textContent = `¡Correcto! La suma era ${totalSum}.`;
+                resultMessage.className = 'message correct';
+            } else {
+                resultMessage.textContent = `¡Incorrecto! La suma correcta era ${totalSum}.`;
+                resultMessage.className = 'message incorrect';
+            }
+        }
+
+        // Event listeners for button clicks
+        startButton.addEventListener('click', startGame);
+        pauseButton.addEventListener('click', togglePause);
+        resetButton.addEventListener('click', resetGame);
+        checkButton.addEventListener('click', checkAnswer);
+        answerInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkAnswer();
+            }
+        });
+
+        // Event listener for the 'Enter' key on the entire document
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                if (!startButton.disabled) {
+                    // Start the game if the 'Start' button is not disabled
+                    startGame();
+                } else if (!pauseButton.disabled) {
+                    // Toggle pause/continue if the 'Pause' button is not disabled
+                    togglePause();
+                }
+            }
+        });
+
+        // Initial state of the buttons
+        updateButtonState('initial');
+    });
+</script>
+
+</body>
+</html>

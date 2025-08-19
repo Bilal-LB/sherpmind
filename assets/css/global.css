@@ -290,12 +290,14 @@ nav a {
 }
 
 .slideshow-container img {
-  border-radius: 2rem; /* Ajusta el valor según el redondeo que desees */
+    border-radius: 2rem;
+    cursor: pointer;
 }
 
     /* Hide the images by default */
 .mySlides {
     display: none;
+    padding: 0 20px;
 }
 
     /* Next & previous buttons */
@@ -308,10 +310,10 @@ nav a {
     margin-top: -2.2rem;
     padding: 1.6rem;
     color: white;
-    font-weight: bold;
-    font-size: 1.8rem;
+    font-size:5rem;
     transition: 0.6s ease;
     user-select: none;
+    margin: 0 20px;
 }
 
 /* Regla específica para el botón izquierdo */
@@ -334,21 +336,38 @@ background-color: rgba(0,0,0,0.8);
 /* Caption text */
 .text {
     color: var(--color-texto);
-    font-size: 1.5rem;
-    padding: .8rem 1.2rem;
+    font-size: 4rem;
+    padding: 2.5rem 2rem;
     position: absolute;
     bottom: .8rem;
     width: 100%;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: auto;
 }
+
+.imagen2, .imagen4, .imagen5 {
+  filter: brightness(0.9); /* Oscurece la imagen al 60% de su brillo original */
+}
+
+.imagen4, .imagen5 {
+  filter: brightness(0.8); /* Oscurece la imagen al 60% de su brillo original */
+}
+
+
 
 /* Number text (1/3 etc) */
 .numbertext {
     color: var(--color-texto);
-    font-size: 1.2rem;
-    padding: .8rem 1.2rem;
+    font-size:3rem;
+    padding: 3rem 3rem;
     position: absolute;
     top: 0;
+    z-index: 100;
 }
 
 /* The dots/bullets/indicators */
@@ -377,7 +396,6 @@ background-color: rgba(0,0,0,0.8);
     from {opacity: .4}
     to {opacity: 1}
 }
-
 
 
 
