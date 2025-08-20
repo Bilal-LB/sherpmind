@@ -152,7 +152,7 @@ nav a {
 .contenido-landing p {
     font-size: 1.5rem;
     width: 70%;
-    margin-bottom: 10rem;
+    margin-bottom: 8rem;
     line-height: 1.8;
 }
 
@@ -161,8 +161,8 @@ nav a {
     font-family: "Montserrat", sans-serif;;
     color: var(--color-texto);
     text-decoration: none;
-    position: absolute;
-    bottom: 5rem;
+    position: relative;
+    top: 0.1rem;
 }
 
 
@@ -211,9 +211,23 @@ nav a {
 }
 
 
-/*Efecto para el párrafo*/
-.tracking-in-expand-fwd{animation:tracking-in-expand-fwd 1s cubic-bezier(.215,.61,.355,1.000) both}
-@keyframes tracking-in-expand-fwd{0%{letter-spacing:-.5em;transform:translateZ(-700px);opacity:0}40%{opacity:.6}100%{transform:translateZ(0);opacity:1}}
+
+/*Efecto para el párrafo principal*/
+
+.tracking-in-expand-fwd {
+    animation: fade-in-scale 1.5s ease-in-out both;
+}
+
+@keyframes fade-in-scale {
+    0% {
+    opacity: 0;
+    transform: scale(0.85);
+    }
+    100% {
+    opacity: 1;
+    transform: scale(1);
+    }
+}
 
 
 /*Efecto para menú*/
@@ -247,8 +261,8 @@ nav a {
     width: 100%;
     height: 100%;
     background-color: rgb(255, 255, 255);
-    margin-top: 20rem;
-    padding-top: 10rem;
+    margin-top: 15rem;
+    padding-top: 8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -261,6 +275,7 @@ nav a {
     font-size: 1.5rem;
     line-height: 1.5;
     font-weight: 400;
+    padding-top: 5rem;
 }
 
 .secciones i {
@@ -277,14 +292,14 @@ nav a {
     line-height: 1.5;
     font-weight: 400;
     width: 50%;
-    padding-bottom: 10rem;
+    padding-bottom: 5rem;
 }
 
 * {box-sizing:border-box}
 
     /* Slideshow container */
 .slideshow-container {
-    max-width: 100rem;
+    max-width: 60rem;
     position: relative;
     margin: auto;
 }
@@ -305,7 +320,7 @@ nav a {
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: 40%;
     width: auto;
     margin-top: -2.2rem;
     padding: 1.6rem;
@@ -336,8 +351,8 @@ background-color: rgba(0,0,0,0.8);
 /* Caption text */
 .text {
     color: var(--color-texto);
-    font-size: 4rem;
-    padding: 2.5rem 2rem;
+    font-size: 3rem;
+    padding: 4rem 2rem;
     position: absolute;
     bottom: .8rem;
     width: 100%;
@@ -413,15 +428,21 @@ background-color: rgba(0,0,0,0.8);
     font-size: 1.5rem;
     padding: 0rem 4rem;
     margin-top: 10rem;
+    flex-wrap: wrap;
 
 }
+
+
 
 p .datos-footer {
     font-style: italic; 
 }
 
-.icono-footer {
-    color:var(--color-texto);
-    font-size: 3rem;
+a.icono-footer{
+    padding-bottom: 1.5rem;;
 }
 
+.bxl-linkedin-square {
+    filter: invert(100%);
+    
+}
